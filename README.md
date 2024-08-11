@@ -1,4 +1,4 @@
-# alive-diary backend
+# alive-diary application
 
 this is your open-source AI-powered diary application aims to provide a unique, innovative, and accessible way for people to explore their emotions, thoughts, and experiences with the help of AI-driven conversation and reflection.
 
