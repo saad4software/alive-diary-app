@@ -26,10 +26,13 @@ abstract class RemoteDatasource {
     @Body() LoginRequest? request,
   });
 
+
   @POST('/account/register/')
-  Future<HttpResponse<GenericResponse<String>>> register({
+  Future<HttpResponse<GenericResponse<UserModel>>> register({
     @Body() RegisterRequest? request,
   });
+
+
 
   @POST('/account/code/')
   Future<HttpResponse<GenericResponse<String>>> code({

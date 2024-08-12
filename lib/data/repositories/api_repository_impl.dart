@@ -87,22 +87,22 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   );
 
   @override
-  Future<DataState<GenericResponse<String>>> register({
+  Future<DataState<GenericResponse<UserModel>>> register({
     required String firstName,
     required String lastName,
     required String username,
     required String password1,
     required String password2,
   }) => getStateOf(
-      request: () => remoteDatasource.register(
-        request: RegisterRequest(
-          firstName: firstName,
-          lastName: lastName,
-          username: username,
-          password1: password1,
-          password2: password2,
-        ),
+    request: () => remoteDatasource.register(
+      request: RegisterRequest(
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        password1: password1,
+        password2: password2,
       ),
+    ),
   );
 
 

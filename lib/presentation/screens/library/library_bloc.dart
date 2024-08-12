@@ -39,7 +39,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
     if (response is DataSuccess) {
 
       final list = response.data?.data?.results ?? [];
-      if (!diariesList.contains(list.first)) diariesList.addAll(list);
+      if (list.isNotEmpty && !diariesList.contains(list.first)) diariesList.addAll(list);
 
       emit(LibraryDiariesState(
         diariesList: diariesList,
@@ -63,7 +63,7 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
     if (response is DataSuccess) {
 
       final list = response.data?.data?.results ?? [];
-      if (!memoriesList.contains(list.first)) memoriesList.addAll(list);
+      if (list.isNotEmpty && !memoriesList.contains(list.first)) memoriesList.addAll(list);
 
 
       emit(LibraryMemoriesState(

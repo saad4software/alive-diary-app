@@ -1,7 +1,8 @@
+import 'package:alive_diary/config/extension/dio_exception_extension.dart';
 import 'package:alive_diary/config/router/app_router.dart';
-import 'package:alive_diary/domain/models/responses/ErrorResponse.dart';
 import 'package:alive_diary/presentation/screens/register/register_bloc.dart';
 import 'package:alive_diary/presentation/widgets/layout_widget.dart';
+import 'package:alive_diary/presentation/widgets/loading_widget.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,15 +30,11 @@ class RegisterScreen extends HookWidget {
       child: SingleChildScrollView(
         child: BlocListener<RegisterBloc, RegisterState>(
           listener: (context, state) {
-            if(state is RegisterSuccessState) {
+            if (state is RegisterSuccessState) {
               showToast("Registered successfully");
-              appRouter.push(const ConfirmRoute());
+              appRouter.push( ConfirmRoute(user: state.user));
             } else if (state is RegisterErrorState) {
-              final msg = state.error?.response?.data == null ?
-                state.error?.message :
-                ErrorResponse.fromJson(state.error?.response?.data).message?.trim();
-
-              showToast(msg ?? "Something went wrong");
+              showToast(state.error?.getErrorMessage() ?? "Check your email for code");
             }
           },
           child: Container(
@@ -53,6 +50,7 @@ class RegisterScreen extends HookWidget {
                     keyboardType: TextInputType.emailAddress,
                     controller: emailField,
                     validator: (val) => val!.isEmpty ? 'Required' : null,
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: "Email",
                       labelStyle: const TextStyle(color: Colors.black38),
@@ -72,6 +70,7 @@ class RegisterScreen extends HookWidget {
                     keyboardType: TextInputType.text,
                     controller: passwordField,
                     validator: (val) => val!.isEmpty ? 'Required' : null,
+                    textInputAction: TextInputAction.next,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: "Password",
@@ -92,6 +91,7 @@ class RegisterScreen extends HookWidget {
                     keyboardType: TextInputType.text,
                     controller: confirmField,
                     validator: (val) => val!.isEmpty ? 'Required' : null,
+                    textInputAction: TextInputAction.next,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: "Confirm Password",
@@ -111,6 +111,7 @@ class RegisterScreen extends HookWidget {
                   TextFormField(
                     keyboardType: TextInputType.text,
                     controller: firstNameField,
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: "First Name",
                       labelStyle: const TextStyle(color: Colors.black38),
@@ -141,25 +142,25 @@ class RegisterScreen extends HookWidget {
                       filled: true,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.text,
-                    controller: lastNameField,
-                    maxLines: 3,
-                    decoration: InputDecoration(
-                      filled: true,
-                      labelText: "Bio",
-                      labelStyle: const TextStyle(color: Colors.black38),
-                      floatingLabelStyle:
-                          const TextStyle(height: 4, color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(width: 2),
-                      ),
-                    ),
-                  ),
+                  // const SizedBox(
+                  //   height: 20,
+                  // ),
+                  // TextFormField(
+                  //   keyboardType: TextInputType.text,
+                  //   controller: lastNameField,
+                  //   maxLines: 3,
+                  //   decoration: InputDecoration(
+                  //     filled: true,
+                  //     labelText: "Bio",
+                  //     labelStyle: const TextStyle(color: Colors.black38),
+                  //     floatingLabelStyle:
+                  //         const TextStyle(height: 4, color: Colors.black),
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(15.0),
+                  //       borderSide: const BorderSide(width: 2),
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -182,27 +183,45 @@ class RegisterScreen extends HookWidget {
                           ),
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            bloc.add(RegisterClickedEvent(
-                              firstName: firstNameField.text,
-                              lastName: lastNameField.text,
-                              email: emailField.text,
-                              password: passwordField.text,
-                              confirm: confirmField.text,
-                            ));
-                          }
+                      BlocBuilder<RegisterBloc, RegisterState>(
+                        builder: (context, state) {
+                          return state is RegisterLoadingState
+                              ? ElevatedButton(
+                                onPressed: (){},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                  Colors.green, // This is what you need!
+                                ),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: const LoadingWidget(color: Colors.white,),
+                                )
+                              )
+                              : ElevatedButton(
+                                  onPressed: () async {
+                                    if (formKey.currentState!.validate()) {
+                                      bloc.add(RegisterClickedEvent(
+                                        firstName: firstNameField.text,
+                                        lastName: lastNameField.text,
+                                        email: emailField.text,
+                                        password: passwordField.text,
+                                        confirm: confirmField.text,
+                                      ));
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Colors.green, // This is what you need!
+                                  ),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: const Text("Register",
+                                        style: TextStyle(color: Colors.white)),
+                                  ),
+                                );
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Colors.green, // This is what you need!
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: const Text("Register",
-                              style: TextStyle(color: Colors.white)),
-                        ),
                       ),
                     ],
                   ),

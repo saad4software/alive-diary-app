@@ -24,9 +24,9 @@ class LinedTextField extends StatelessWidget {
           SizedBox(
             height: 500,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                decoration: InputDecoration(border: InputBorder.none),
+                decoration: const InputDecoration(border: InputBorder.none),
                 cursorHeight: 35,
                 style: GoogleFonts.caveat(fontSize: 30),
                 keyboardType: TextInputType.multiline,

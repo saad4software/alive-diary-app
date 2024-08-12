@@ -1,10 +1,8 @@
 import 'package:alive_diary/abstracts/network_interceptor.dart';
 import 'package:alive_diary/config/locale/app_locale.dart';
-import 'package:alive_diary/config/router/app_router.dart';
 import 'package:alive_diary/data/datasources/remote_datasource.dart';
 import 'package:alive_diary/data/repositories/api_repository_impl.dart';
 import 'package:alive_diary/domain/repositories/api_repository.dart';
-import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_tts/flutter_tts.dart';

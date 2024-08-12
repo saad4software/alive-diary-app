@@ -1,6 +1,3 @@
-
-import 'dart:math';
-
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +18,6 @@ class ItemDiary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var rng = Random();
 
     final name = item.isMemory! ? item.title :  "${item.firstName} ${item.lastName}'s diary";
     final num = item.id! % 2 == 0 ? 2 : item.id! % 3 == 0 ? 3 : item.id! % 4 == 0 ? 4 : 1;

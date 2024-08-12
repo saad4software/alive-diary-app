@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:alive_diary/abstracts/data_state.dart';
+import 'package:alive_diary/domain/models/entities/user_model.dart';
 import 'package:alive_diary/domain/repositories/api_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -35,9 +36,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     );
 
     if (response is DataSuccess) {
-      emit(RegisterSuccessState());
+      emit(RegisterSuccessState(user: response.data?.data));
 
     } else if (response is DataFailed) {
+      print(response.error);
       emit(RegisterErrorState(error: response.error));
     }
 

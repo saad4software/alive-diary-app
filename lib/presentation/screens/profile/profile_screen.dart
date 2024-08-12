@@ -50,7 +50,7 @@ class ProfileScreen extends HookWidget {
             ),
             Text("${profile.value?.firstName} ${profile.value?.lastName}", style: AppTheme.textHeader,),
             Text("${profile.value?.username}", style: AppTheme.textBody,),
-            Text("${profile.value?.bio}", style: AppTheme.textBody,),
+            // Text("${profile.value?.bio}", style: AppTheme.textBody,),
 
             GestureDetector(
               onTap: () {

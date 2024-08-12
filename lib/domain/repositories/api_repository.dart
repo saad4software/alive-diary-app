@@ -14,7 +14,7 @@ abstract class ApiRepository {
     required String password,
   });
 
-  Future<DataState<GenericResponse<String>>> register({
+  Future<DataState<GenericResponse<UserModel>>> register({
     required String firstName,
     required String lastName,
     required String username,

@@ -25,6 +25,7 @@ class AppFormField extends StatelessWidget {
         keyboardType: TextInputType.text,
         controller: controller,
         validator: isRequired ? (val) => val!.isEmpty ? 'Required' : null : null,
+        textInputAction: TextInputAction.next,
         maxLines: isMultiline ? 3 : null,
         decoration: InputDecoration(
           labelText: label,

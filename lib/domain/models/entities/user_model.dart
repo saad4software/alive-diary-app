@@ -34,20 +34,20 @@ class UserModel {
   String? firstName;
   String? lastName;
   String? username;
-  dynamic countryCode;
+  String? countryCode;
   String? expirationDate;
-  dynamic hobbies;
-  dynamic job;
-  dynamic bio;
+  String? hobbies;
+  String? job;
+  String? bio;
   String? role;
 UserModel copyWith({  String? firstName,
   String? lastName,
   String? username,
-  dynamic countryCode,
+  String? countryCode,
   String? expirationDate,
-  dynamic hobbies,
-  dynamic job,
-  dynamic bio,
+  String? hobbies,
+  String? job,
+  String? bio,
   String? role,
 }) => UserModel(  firstName: firstName ?? this.firstName,
   lastName: lastName ?? this.lastName,

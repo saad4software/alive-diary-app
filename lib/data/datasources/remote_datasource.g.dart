@@ -13,7 +13,7 @@ class _RemoteDatasource implements RemoteDatasource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.2.2:8555/api';
+    baseUrl ??= 'http://192.168.1.102:8555/api';
   }
 
   final Dio _dio;
@@ -55,7 +55,7 @@ class _RemoteDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<HttpResponse<GenericResponse<String>>> register(
+  Future<HttpResponse<GenericResponse<UserModel>>> register(
       {RegisterRequest? request}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -64,7 +64,7 @@ class _RemoteDatasource implements RemoteDatasource {
     final _data = <String, dynamic>{};
     _data.addAll(request?.toJson() ?? <String, dynamic>{});
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<GenericResponse<String>>>(Options(
+        _setStreamType<HttpResponse<GenericResponse<UserModel>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -80,9 +80,9 @@ class _RemoteDatasource implements RemoteDatasource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final _value = GenericResponse<String>.fromJson(
+    final _value = GenericResponse<UserModel>.fromJson(
       _result.data!,
-      (json) => json as String,
+      (json) => UserModel.fromJson(json as Map<String, dynamic>),
     );
     final httpResponse = HttpResponse(_value, _result);
     return httpResponse;

@@ -14,7 +14,8 @@ abstract class BaseApiRepository {
   }) async {
     try {
       final httpResponse = await request();
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      final okStatus = [HttpStatus.ok, HttpStatus.created, HttpStatus.accepted,];
+      if (okStatus.contains(httpResponse.response.statusCode) ) {
         return DataSuccess(httpResponse.data);
       } else {
         throw DioException(

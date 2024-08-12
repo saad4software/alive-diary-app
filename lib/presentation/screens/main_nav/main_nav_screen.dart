@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:alive_diary/config/constants/app_consts.dart';
 import 'package:alive_diary/config/locale/app_locale.dart';

@@ -71,6 +71,7 @@ class LoginScreen extends HookWidget {
                     controller: usernameField,
                     validator: (val) =>
                     val!.isEmpty ? AppLocale.required.getString(context) : null,
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
 
                       labelText: AppLocale.email.getString(context),
@@ -151,7 +152,7 @@ class LoginScreen extends HookWidget {
                   TextButton(
 
                     onPressed: () {
-                      appRouter.push(const ConfirmRoute());
+                      appRouter.push( ConfirmRoute());
                     },
                     child: Text(AppLocale.haveCode.getString(context)),
                   ),

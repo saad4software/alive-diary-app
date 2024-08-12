@@ -26,7 +26,7 @@ class ProfileEditScreen extends HookWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return LayoutWidget(
-      title: "edit profile",
+      title: "Edit Profile",
       child: SingleChildScrollView(
         child:  Container(
           padding: const EdgeInsets.all(20),
@@ -94,7 +94,6 @@ class ProfileEditScreen extends HookWidget {
                     ElevatedButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-
 
                         }
                       },

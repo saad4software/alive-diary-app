@@ -16,9 +16,14 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     ConfirmRoute.name: (routeData) {
+      final args = routeData.argsAs<ConfirmRouteArgs>(
+          orElse: () => const ConfirmRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const ConfirmScreen(),
+        child: ConfirmScreen(
+          key: args.key,
+          user: args.user,
+        ),
       );
     },
     ConversationRoute.name: (routeData) {
@@ -85,16 +90,40 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [ConfirmScreen]
-class ConfirmRoute extends PageRouteInfo<void> {
-  const ConfirmRoute({List<PageRouteInfo>? children})
-      : super(
+class ConfirmRoute extends PageRouteInfo<ConfirmRouteArgs> {
+  ConfirmRoute({
+    Key? key,
+    UserModel? user,
+    List<PageRouteInfo>? children,
+  }) : super(
           ConfirmRoute.name,
+          args: ConfirmRouteArgs(
+            key: key,
+            user: user,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ConfirmRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<ConfirmRouteArgs> page =
+      PageInfo<ConfirmRouteArgs>(name);
+}
+
+class ConfirmRouteArgs {
+  const ConfirmRouteArgs({
+    this.key,
+    this.user,
+  });
+
+  final Key? key;
+
+  final UserModel? user;
+
+  @override
+  String toString() {
+    return 'ConfirmRouteArgs{key: $key, user: $user}';
+  }
 }
 
 /// generated route for
