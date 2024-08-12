@@ -13,7 +13,7 @@ class _RemoteDatasource implements RemoteDatasource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.2.2:8555/api';
+    baseUrl ??= 'http://campaigny.net:8099/api';
   }
 
   final Dio _dio;
