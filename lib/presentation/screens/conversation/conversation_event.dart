@@ -30,3 +30,6 @@ class ConversationReadTextEvent extends ConversationEvent {
 }
 
 class ConversationWriteTextEvent extends ConversationEvent {}
+class ConversationUpdateTextEvent extends ConversationEvent {
+  const ConversationUpdateTextEvent({super.text});
+}

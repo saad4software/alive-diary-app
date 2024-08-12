@@ -7,12 +7,16 @@ class ItemDiary extends StatelessWidget {
   final DiaryModel item;
   final bool isRemovable;
   final void Function(DiaryModel item)? onRemove;
+  final void Function(DiaryModel item)? onShare;
   final void Function(DiaryModel item)? onItemPressed;
+  final bool showContextMenu;
   const ItemDiary({
     super.key,
     required this.item,
     this.onItemPressed,
+    this.showContextMenu=false,
     this.onRemove,
+    this.onShare,
     this.isRemovable = false,
   });
 
@@ -33,14 +37,45 @@ class ItemDiary extends StatelessWidget {
           ),
         ),
         padding: EdgeInsets.fromLTRB(20, 20, rightPadding , 20),
-        child: Text(
-          name ?? "",
-          style: GoogleFonts.permanentMarker(
-            fontSize: 20,
-            color: Colors.amber,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              name ?? "",
+              style: GoogleFonts.permanentMarker(
+                fontSize: 20,
+                color: Colors.amber,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+
+
+            ),
+            showContextMenu ?
+            PopupMenuButton<String>(
+              itemBuilder: (context) => [
+                PopupMenuItem(child: const Row(
+                  children: [
+                    Icon(Icons.share),
+                    SizedBox(width: 10,),
+                    Text("Share"),
+                  ],),
+                  onTap: ()=>onShare?.call(item),
+                ),
+                // PopupMenuItem(child: const Row(
+                //   children: [
+                //     Icon(Icons.delete, color: Colors.red,),
+                //     SizedBox(width: 10,),
+                //     Text("Delete", style: TextStyle(color: Colors.red),),
+                //   ],),
+                //   onTap: ()=>onRemove?.call(item),
+                // ),
+              ],
+              icon: const Icon(Icons.more, color: Colors.amber,),
+              offset: const Offset(30, 40),
+            ) :
+            Container(),
+          ],
         ),
       ),
     );

@@ -205,6 +205,7 @@ class ConversationScreen extends HookWidget {
                       ));
 
                     },
+                    onChanged: (text)=>bloc.add(ConversationUpdateTextEvent(text: text)),
                   );
                 },
 

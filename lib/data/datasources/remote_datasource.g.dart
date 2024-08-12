@@ -13,7 +13,7 @@ class _RemoteDatasource implements RemoteDatasource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.1.102:8555/api';
+    baseUrl ??= 'http://10.0.2.2:8555/api';
   }
 
   final Dio _dio;
@@ -390,6 +390,46 @@ class _RemoteDatasource implements RemoteDatasource {
   }
 
   @override
+  Future<HttpResponse<GenericResponse<String>>> diariesDelete({
+    int? id,
+    String? token,
+    String? lang,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      r'Authorization': token,
+      r'Accept-Language': lang,
+    };
+    _headers.removeWhere((k, v) => v == null);
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<GenericResponse<String>>>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/diaries/list/${id}/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = GenericResponse<String>.fromJson(
+      _result.data!,
+      (json) => json as String,
+    );
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<GenericResponse<MessageModel>>> diaryStart({
     int? id,
     String? token,
@@ -506,6 +546,47 @@ class _RemoteDatasource implements RemoteDatasource {
     final _value = GenericResponse<MessageModel>.fromJson(
       _result.data!,
       (json) => MessageModel.fromJson(json as Map<String, dynamic>),
+    );
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<GenericResponse<String>>> diaryShare({
+    int? id,
+    String? username,
+    String? token,
+    String? lang,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'email': username};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      r'Authorization': token,
+      r'Accept-Language': lang,
+    };
+    _headers.removeWhere((k, v) => v == null);
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<GenericResponse<String>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/diaries/list/${id}/share/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = GenericResponse<String>.fromJson(
+      _result.data!,
+      (json) => json as String,
     );
     final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
@@ -639,6 +720,46 @@ class _RemoteDatasource implements RemoteDatasource {
   }
 
   @override
+  Future<HttpResponse<GenericResponse<String>>> memoryDelete({
+    int? id,
+    String? token,
+    String? lang,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      r'Authorization': token,
+      r'Accept-Language': lang,
+    };
+    _headers.removeWhere((k, v) => v == null);
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<GenericResponse<String>>>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/memories/list/${id}/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = GenericResponse<String>.fromJson(
+      _result.data!,
+      (json) => json as String,
+    );
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<GenericResponse<MessageModel>>> memoryStart({
     int? id,
     String? token,
@@ -755,6 +876,47 @@ class _RemoteDatasource implements RemoteDatasource {
     final _value = GenericResponse<MessageModel>.fromJson(
       _result.data!,
       (json) => MessageModel.fromJson(json as Map<String, dynamic>),
+    );
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<GenericResponse<String>>> memoryShare({
+    String? email,
+    int? id,
+    String? token,
+    String? lang,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'email': email};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      r'Authorization': token,
+      r'Accept-Language': lang,
+    };
+    _headers.removeWhere((k, v) => v == null);
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<GenericResponse<String>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/memories/list/${id}/share/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = GenericResponse<String>.fromJson(
+      _result.data!,
+      (json) => json as String,
     );
     final httpResponse = HttpResponse(_value, _result);
     return httpResponse;

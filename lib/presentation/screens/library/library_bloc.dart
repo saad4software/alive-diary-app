@@ -26,6 +26,10 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
   LibraryBloc(this.apiRepository) : super(LibraryInitial()) {
     on<LibraryDiariesListEvent>(handleDiariesList);
     on<LibraryMemoriesListEvent>(handleMemoriesList);
+    on<LibraryShareDiaryEvent>(handleShareDiary);
+    on<LibraryShareMemoryEvent>(handleShareMemory);
+    on<LibraryDelDiaryEvent>(handleDeleteDiary);
+    on<LibraryDelMemoryEvent>(handleDeleteMemory);
   }
 
   FutureOr<void> handleDiariesList(
@@ -71,6 +75,65 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
         noMoreMemories: response.data?.data?.next == null,
       ));
 
+    } else if (response is DataFailed) {
+      emit(LibraryErrorState(errorMessage: response.error?.getErrorMessage()));
+    }
+
+  }
+
+  FutureOr<void> handleShareDiary(
+      LibraryShareDiaryEvent event,
+      Emitter<LibraryState> emit,
+  ) async {
+    emit(LibraryLoadingState());
+
+    final response = await apiRepository.diaryShare(item: event.item!, email: event.email ?? "");
+    if (response is DataSuccess) {
+      emit(LibraryShareDiaryState());
+    } else if (response is DataFailed) {
+      emit(LibraryErrorState(errorMessage: response.error?.getErrorMessage()));
+    }
+
+  }
+
+  FutureOr<void> handleShareMemory(
+      LibraryShareMemoryEvent event,
+      Emitter<LibraryState> emit,
+  ) async {
+    emit(LibraryLoadingState());
+
+    final response = await apiRepository.memoryShare(item: event.item!, email: event.email ?? "");
+    if (response is DataSuccess) {
+      emit(LibraryShareMemoryState());
+    } else if (response is DataFailed) {
+      emit(LibraryErrorState(errorMessage: response.error?.getErrorMessage()));
+    }
+
+  }
+
+  FutureOr<void> handleDeleteDiary(
+      LibraryDelDiaryEvent event,
+      Emitter<LibraryState> emit,
+  ) async {
+
+    final response = await apiRepository.diariesDelete(item: event.item!);
+    if (response is DataSuccess) {
+      emit(LibraryDeleteDiaryState());
+    } else if (response is DataFailed) {
+      emit(LibraryErrorState(errorMessage: response.error?.getErrorMessage()));
+    }
+
+
+  }
+
+  FutureOr<void> handleDeleteMemory(
+      LibraryDelMemoryEvent event,
+      Emitter<LibraryState> emit,
+  ) async {
+
+    final response = await apiRepository.memoryDelete(item: event.item!);
+    if (response is DataSuccess) {
+      emit(LibraryDeleteMemoryState());
     } else if (response is DataFailed) {
       emit(LibraryErrorState(errorMessage: response.error?.getErrorMessage()));
     }

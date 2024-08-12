@@ -77,7 +77,7 @@ class ConfirmScreen extends HookWidget {
                     height: 20,
                   ),
                   TextFormField(
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     controller: codeField,
                     validator: (val) => val!.isEmpty ? 'Required' : null,
                     decoration: InputDecoration(

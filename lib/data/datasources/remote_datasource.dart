@@ -82,6 +82,13 @@ abstract class RemoteDatasource {
     @Header("Accept-Language") String? lang,
   });
 
+  @DELETE('/diaries/list/{id}/')
+  Future<HttpResponse<GenericResponse<String>>> diariesDelete({
+    @Path() int? id,
+    @Header("Authorization") String? token,
+    @Header("Accept-Language") String? lang,
+  });
+
 
   @GET('/diaries/list/{id}/start/')
   Future<HttpResponse<GenericResponse<MessageModel>>> diaryStart({
@@ -102,6 +109,14 @@ abstract class RemoteDatasource {
   @GET('/diaries/list/{id}/create/')
   Future<HttpResponse<GenericResponse<MessageModel>>> diaryCreateStart({
     @Path() int? id,
+    @Header("Authorization") String? token,
+    @Header("Accept-Language") String? lang,
+  });
+
+  @GET('/diaries/list/{id}/share/')
+  Future<HttpResponse<GenericResponse<String>>> diaryShare({
+    @Path() int? id,
+    @Query("email") String? username,
     @Header("Authorization") String? token,
     @Header("Accept-Language") String? lang,
   });
@@ -130,6 +145,13 @@ abstract class RemoteDatasource {
   });
 
 
+  @DELETE('/memories/list/{id}/')
+  Future<HttpResponse<GenericResponse<String>>> memoryDelete({
+    @Path() int? id,
+    @Header("Authorization") String? token,
+    @Header("Accept-Language") String? lang,
+  });
+
   @GET('/memories/list/{id}/start/')
   Future<HttpResponse<GenericResponse<MessageModel>>> memoryStart({
     @Path() int? id,
@@ -148,6 +170,14 @@ abstract class RemoteDatasource {
 
   @GET('/memories/list/{id}/create/')
   Future<HttpResponse<GenericResponse<MessageModel>>> memoryCreateStart({
+    @Path() int? id,
+    @Header("Authorization") String? token,
+    @Header("Accept-Language") String? lang,
+  });
+
+  @GET('/memories/list/{id}/share/')
+  Future<HttpResponse<GenericResponse<String>>> memoryShare({
+    @Query("email") String? email,
     @Path() int? id,
     @Header("Authorization") String? token,
     @Header("Accept-Language") String? lang,

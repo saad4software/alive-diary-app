@@ -26,7 +26,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   final SpeechToText stt;
 
   int? conversationId;
-  String? recognizedText;
+  String? recognizedText = "";
 
   ConversationBloc(
       this.apiRepository,
@@ -38,6 +38,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     on<ConversationSendEvent>(handleConversationSend);
     on<ConversationReadTextEvent>(handleReadText);
     on<ConversationWriteTextEvent>(handleWriteText);
+    on<ConversationUpdateTextEvent>(handleUpdateText);
   }
 
   FutureOr<void> handleConversationStart(
@@ -150,6 +151,10 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     await tts.setSpeechRate(0.5);
     await tts.setVolume(1.0);
     await tts.setPitch(1.0);
+
+    // wait for text to start showing on the screen
+    await Future.delayed(const Duration(seconds: 1));
+
     await tts.speak(event.text ?? "");
 
     emit(ConversationInitial());
@@ -195,5 +200,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     );
 
     return c.future;
+  }
+
+  FutureOr<void> handleUpdateText(
+      ConversationUpdateTextEvent event,
+      Emitter<ConversationState> emit,
+  ) {
+    recognizedText = event.text;
   }
 }

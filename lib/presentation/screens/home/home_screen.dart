@@ -101,9 +101,6 @@ class HomeScreen extends HookWidget {
         ],
       );
 
-      // showDialog(context: context, builder: (context)=>dialog);
-
-
       showGeneralDialog(
           barrierColor: Colors.black.withOpacity(0.5),
           transitionBuilder: (context, a1, a2, widget) {

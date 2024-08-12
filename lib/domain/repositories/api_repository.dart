@@ -38,18 +38,15 @@ abstract class ApiRepository {
 
   Future<DataState<GenericResponse<UserModel>>> accountDetails();
 
-  // Future<DataState<GenericResponse<MessageModel>>> startConversation();
-  //
-  // Future<DataState<GenericResponse<MessageModel>>> sendMessage({
-  //   required String text,
-  //   required int conversation,
-  // });
 
   Future<DataState<GenericResponse<ListResponse<DiaryModel>>>> diariesList({
     required int page,
   });
 
   Future<DataState<GenericResponse<DiaryModel>>> diariesCreate();
+  Future<DataState<GenericResponse<String>>> diariesDelete({
+    required DiaryModel item,
+  });
 
   Future<DataState<GenericResponse<MessageModel>>> diaryStart({
     required DiaryModel item,
@@ -59,6 +56,11 @@ abstract class ApiRepository {
     required DiaryModel item,
     required String text,
     required int conversation,
+  });
+
+  Future<DataState<GenericResponse<String>>> diaryShare({
+    required DiaryModel item,
+    required String email,
   });
 
   Future<DataState<GenericResponse<MessageModel>>> diaryCreateStart({
@@ -79,6 +81,10 @@ abstract class ApiRepository {
     required String name,
   });
 
+  Future<DataState<GenericResponse<String>>> memoryDelete({
+    required DiaryModel item,
+  });
+
   Future<DataState<GenericResponse<MessageModel>>> memoryStart({
     required DiaryModel item,
   });
@@ -91,6 +97,11 @@ abstract class ApiRepository {
 
   Future<DataState<GenericResponse<MessageModel>>> memoryCreateStart({
     required DiaryModel item,
+  });
+
+  Future<DataState<GenericResponse<String>>> memoryShare({
+    required DiaryModel item,
+    required String email,
   });
 
   Future<DataState<GenericResponse<MessageModel>>> memoryCreateSend({

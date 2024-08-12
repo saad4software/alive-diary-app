@@ -4,8 +4,15 @@ part of 'library_bloc.dart';
 sealed class LibraryEvent {
   final int? page;
   final int? pageSize;
+  final String? email;
+  final DiaryModel? item;
 
-  const LibraryEvent({this.page, this.pageSize});
+  const LibraryEvent({
+    this.page,
+    this.pageSize,
+    this.email,
+    this.item,
+  });
 }
 
 class LibraryDiariesListEvent extends LibraryEvent {
@@ -14,4 +21,23 @@ class LibraryDiariesListEvent extends LibraryEvent {
 
 class LibraryMemoriesListEvent extends LibraryEvent {
   const LibraryMemoriesListEvent({super.page});
+}
+
+class LibraryShareDiaryEvent extends LibraryEvent {
+  const LibraryShareDiaryEvent({super.email, super.item});
+}
+
+class LibraryShareMemoryEvent extends LibraryEvent {
+  const LibraryShareMemoryEvent({
+    super.email,
+    super.item,
+  });
+}
+
+class LibraryDelMemoryEvent extends LibraryEvent {
+  const LibraryDelMemoryEvent({super.item});
+}
+
+class LibraryDelDiaryEvent extends LibraryEvent {
+  const LibraryDelDiaryEvent({super.item});
 }

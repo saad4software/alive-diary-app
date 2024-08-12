@@ -283,4 +283,60 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
       }
   );
 
+  @override
+  Future<DataState<GenericResponse<String>>> diariesDelete({
+    required DiaryModel item,
+  }) => getStateOf(
+      request: () {
+        return remoteDatasource.diariesDelete(
+          id: item.id,
+          token: "Bearer ${_preferences.getString(AppConsts.keyToken)}",
+          lang: locator<FlutterLocalization>().currentLocale.localeIdentifier,
+        );
+      }
+  );
+
+  @override
+  Future<DataState<GenericResponse<String>>> diaryShare({
+    required String email,
+    required DiaryModel item,
+  }) => getStateOf(
+      request: () {
+        return remoteDatasource.diaryShare(
+          id: item.id,
+          username: email,
+          token: "Bearer ${_preferences.getString(AppConsts.keyToken)}",
+          lang: locator<FlutterLocalization>().currentLocale.localeIdentifier,
+        );
+      }
+  );
+
+  @override
+  Future<DataState<GenericResponse<String>>> memoryDelete({
+    required DiaryModel item,
+  }) => getStateOf(
+      request: () {
+        return remoteDatasource.memoryDelete(
+          id: item.id,
+          token: "Bearer ${_preferences.getString(AppConsts.keyToken)}",
+          lang: locator<FlutterLocalization>().currentLocale.localeIdentifier,
+        );
+      }
+  );
+
+  @override
+  Future<DataState<GenericResponse<String>>> memoryShare({
+    required String email,
+    required DiaryModel item,
+  }) => getStateOf(
+      request: () {
+        return remoteDatasource.memoryShare(
+          email: email,
+          id: item.id,
+          token: "Bearer ${_preferences.getString(AppConsts.keyToken)}",
+          lang: locator<FlutterLocalization>().currentLocale.localeIdentifier,
+        );
+      }
+  );
+
 }
