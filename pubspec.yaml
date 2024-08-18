@@ -4,7 +4,7 @@ description: "A new Flutter project."
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 1.0.0+5
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
@@ -74,6 +74,7 @@ flutter:
     - assets/images/logo_nav.png
     - assets/images/diary_icon.png
     - assets/images/diary_new.png
+    - assets/images/diary_splash.png
     - assets/images/diary_new_outline.png
     - assets/images/paper_bg.jpg
     - assets/lottie/profile.json
@@ -89,10 +90,10 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
-  image: assets/images/diary_new.png
+  image: assets/images/diary_splash.png
   color: "#FFFFFF"
   android_12:
-    image: assets/images/diary_new.png
+    image: assets/images/diary_splash.png
     color: "#FFFFFF"
 
 

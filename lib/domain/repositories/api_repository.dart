@@ -36,7 +36,8 @@ abstract class ApiRepository {
     required String newPassword,
   });
 
-  Future<DataState<GenericResponse<UserModel>>> accountDetails();
+  Future<DataState<GenericResponse<UserModel>>> profileDetails();
+  Future<DataState<GenericResponse<UserModel>>> updateProfile(UserModel item);
 
 
   Future<DataState<GenericResponse<ListResponse<DiaryModel>>>> diariesList({

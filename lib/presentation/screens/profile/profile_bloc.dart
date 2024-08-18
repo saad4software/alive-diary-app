@@ -13,13 +13,14 @@ part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
 
+  final SharedPreferences preferences;
 
-  ProfileBloc() : super(ProfileInitial()) {
+  ProfileBloc(this.preferences) : super(ProfileInitial()) {
     on<ProfileLoadEvent>(handleLoadEvent);
   }
 
   FutureOr<void> handleLoadEvent(ProfileLoadEvent event, Emitter<ProfileState> emit) async {
-    final userString = locator<SharedPreferences>().getString(AppConsts.keyUser);
+    final userString = preferences.getString(AppConsts.keyUser);
     final userModel = UserModel.fromJson(jsonDecode(userString!));
 
     emit(ProfileSuccessState(user: userModel));

@@ -40,8 +40,8 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   );
 
   @override
-  Future<DataState<GenericResponse<UserModel>>> accountDetails() => getStateOf(
-      request: ()=>remoteDatasource.details(
+  Future<DataState<GenericResponse<UserModel>>> profileDetails() => getStateOf(
+      request: ()=>remoteDatasource.profileDetails(
         token: _preferences.getString("Bearer ${AppConsts.keyToken}"),
         lang: locator<FlutterLocalization>().currentLocale.localeIdentifier,
       )
@@ -333,6 +333,19 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
         return remoteDatasource.memoryShare(
           email: email,
           id: item.id,
+          token: "Bearer ${_preferences.getString(AppConsts.keyToken)}",
+          lang: locator<FlutterLocalization>().currentLocale.localeIdentifier,
+        );
+      }
+  );
+
+  @override
+  Future<DataState<GenericResponse<UserModel>>> updateProfile(
+      UserModel item,
+  ) => getStateOf(
+      request: () {
+        return remoteDatasource.updateProfile(
+          request: item,
           token: "Bearer ${_preferences.getString(AppConsts.keyToken)}",
           lang: locator<FlutterLocalization>().currentLocale.localeIdentifier,
         );

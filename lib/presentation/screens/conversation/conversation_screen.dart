@@ -79,12 +79,17 @@ class ConversationScreen extends HookWidget {
 
       case ConversationType.diary:
         title = "${item?.firstName} ${item?.lastName}'s diary";
+
       case ConversationType.memory:
         title = "${item?.title}";
+
       case ConversationType.createMemory:
         title = "Capture ${item?.title}";
+
       case null:
         // TODO: Handle this case.
+        break;
+
 
     }
 
@@ -133,6 +138,7 @@ class ConversationScreen extends HookWidget {
               switch (state) {
                 case ConversationInitial():
                   print("init");
+                  break;
 
                 case ConversationListeningState():
                   isListening.value = true;
@@ -149,9 +155,11 @@ class ConversationScreen extends HookWidget {
                 case ConversationLoadingState():
                   // canWrite.value = false;
                   print("loading");
+                  break;
 
                 case ConversationStartState():
                   print("start");
+                  break;
 
                 case ConversationSuccessState():
 

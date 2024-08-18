@@ -62,7 +62,14 @@ abstract class RemoteDatasource {
   });
 
   @GET('/account/details/')
-  Future<HttpResponse<GenericResponse<UserModel>>> details({
+  Future<HttpResponse<GenericResponse<UserModel>>> profileDetails({
+    @Header("Authorization") String? token,
+    @Header("Accept-Language") String? lang,
+  });
+
+  @POST('/account/details/')
+  Future<HttpResponse<GenericResponse<UserModel>>> updateProfile({
+    @Body() UserModel? request,
     @Header("Authorization") String? token,
     @Header("Accept-Language") String? lang,
   });

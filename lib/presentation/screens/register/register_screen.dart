@@ -1,12 +1,15 @@
 import 'package:alive_diary/config/extension/dio_exception_extension.dart';
+import 'package:alive_diary/config/locale/app_locale.dart';
 import 'package:alive_diary/config/router/app_router.dart';
 import 'package:alive_diary/presentation/screens/register/register_bloc.dart';
+import 'package:alive_diary/presentation/widgets/app_field_widget.dart';
 import 'package:alive_diary/presentation/widgets/layout_widget.dart';
 import 'package:alive_diary/presentation/widgets/loading_widget.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:oktoast/oktoast.dart';
 
 @RoutePage()
@@ -26,7 +29,7 @@ class RegisterScreen extends HookWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return LayoutWidget(
-      title: "Register",
+      title: AppLocale.register.getString(context),
       child: SingleChildScrollView(
         child: BlocListener<RegisterBloc, RegisterState>(
           listener: (context, state) {
@@ -46,121 +49,55 @@ class RegisterScreen extends HookWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
+
+                  AppFieldWidget(
                     controller: emailField,
-                    validator: (val) => val!.isEmpty ? 'Required' : null,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                      labelStyle: const TextStyle(color: Colors.black38),
-                      floatingLabelStyle:
-                          const TextStyle(height: 4, color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(width: 2),
-                      ),
-                      filled: true,
-                    ),
+                    label: AppLocale.email.getString(context),
+                    inputType: TextInputType.emailAddress,
                   ),
+
+
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.text,
+
+                  AppFieldWidget(
                     controller: passwordField,
-                    validator: (val) => val!.isEmpty ? 'Required' : null,
-                    textInputAction: TextInputAction.next,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      labelStyle: const TextStyle(color: Colors.black38),
-                      floatingLabelStyle:
-                          const TextStyle(height: 4, color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(width: 2),
-                      ),
-                      filled: true,
-                    ),
+                    label: AppLocale.password.getString(context),
+                    isPassword: true,
                   ),
+
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.text,
+
+                  AppFieldWidget(
                     controller: confirmField,
-                    validator: (val) => val!.isEmpty ? 'Required' : null,
-                    textInputAction: TextInputAction.next,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Confirm Password",
-                      labelStyle: const TextStyle(color: Colors.black38),
-                      floatingLabelStyle:
-                          const TextStyle(height: 4, color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(width: 2),
-                      ),
-                      filled: true,
-                    ),
+                    label: AppLocale.confirmPassword.getString(context),
+                    isPassword: true,
                   ),
+
+
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.text,
+
+                  AppFieldWidget(
                     controller: firstNameField,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      labelText: "First Name",
-                      labelStyle: const TextStyle(color: Colors.black38),
-                      floatingLabelStyle:
-                          const TextStyle(height: 4, color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(width: 2),
-                      ),
-                      filled: true,
-                    ),
+                    label: AppLocale.firstName.getString(context),
                   ),
+
+
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.text,
+
+                  AppFieldWidget(
                     controller: lastNameField,
-                    decoration: InputDecoration(
-                      labelText: "Last Name",
-                      labelStyle: const TextStyle(color: Colors.black38),
-                      floatingLabelStyle:
-                          const TextStyle(height: 4, color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(width: 2),
-                      ),
-                      filled: true,
-                    ),
+                    label: AppLocale.lastName.getString(context),
                   ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
-                  // TextFormField(
-                  //   keyboardType: TextInputType.text,
-                  //   controller: lastNameField,
-                  //   maxLines: 3,
-                  //   decoration: InputDecoration(
-                  //     filled: true,
-                  //     labelText: "Bio",
-                  //     labelStyle: const TextStyle(color: Colors.black38),
-                  //     floatingLabelStyle:
-                  //         const TextStyle(height: 4, color: Colors.black),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(15.0),
-                  //       borderSide: const BorderSide(width: 2),
-                  //     ),
-                  //   ),
-                  // ),
+
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -177,9 +114,9 @@ class RegisterScreen extends HookWidget {
                         ),
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: const Text(
-                            "Cancel",
-                            style: TextStyle(color: Colors.white),
+                          child: Text(
+                            AppLocale.cancel.getString(context),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
@@ -217,8 +154,8 @@ class RegisterScreen extends HookWidget {
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20),
-                                    child: const Text("Register",
-                                        style: TextStyle(color: Colors.white)),
+                                    child: Text(AppLocale.register.getString(context),
+                                        style: const TextStyle(color: Colors.white)),
                                   ),
                                 );
                         },

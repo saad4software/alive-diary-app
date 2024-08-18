@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:alive_diary/config/locale/app_locale.dart';
 import 'package:alive_diary/config/router/app_router.dart';
 import 'package:alive_diary/presentation/screens/login/login_bloc.dart';
+import 'package:alive_diary/presentation/widgets/app_field_widget.dart';
 import 'package:alive_diary/presentation/widgets/loading_widget.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class LoginScreen extends HookWidget {
             showToast(state.errorMessage ?? "Something went wrong");
           } else if (state is LoginSuccessState) {
             showToast(AppLocale.welcome.getString(context));
-            appRouter.push(const MainNavRoute());
+            appRouter.replaceAll([const MainNavRoute()]);
           } else if (state is LoginInitialState) {
             if (state.isLoggedIn) appRouter.replaceAll([const MainNavRoute()]);
           }
@@ -66,48 +67,21 @@ class LoginScreen extends HookWidget {
 
                   Lottie.asset('assets/lottie/profile.json'),
 
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
+                  AppFieldWidget(
                     controller: usernameField,
-                    validator: (val) =>
-                    val!.isEmpty ? AppLocale.required.getString(context) : null,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-
-                      labelText: AppLocale.email.getString(context),
-                      labelStyle: const TextStyle(color: Colors.black38),
-                      floatingLabelStyle: const TextStyle(
-                          height: 4, color: Colors.black),
-
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(width: 2),
-                      ),
-
-                      filled: true,
-                    ),
+                    label: AppLocale.email.getString(context),
+                    isRequired: true,
+                    inputType: TextInputType.emailAddress,
                   ),
+
+
                   const SizedBox(height: 20,),
 
-                  TextFormField(
-                    keyboardType: TextInputType.text,
+                  AppFieldWidget(
                     controller: passwordField,
-                    validator: (val) =>
-                    val!.isEmpty ? AppLocale.required.getString(context) : null,
-                    obscureText: true,
-                    decoration: InputDecoration(
-
-                      labelText: AppLocale.password.getString(context),
-                      labelStyle: const TextStyle(color: Colors.black38),
-                      floatingLabelStyle: const TextStyle(
-                          height: 4, color: Colors.black),
-
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: const BorderSide(width: 2),
-                      ),
-                      filled: true,
-                    ),
+                    label: AppLocale.password.getString(context),
+                    isRequired: true,
+                    isPassword: true,
                   ),
 
                   const SizedBox(height: 20,),

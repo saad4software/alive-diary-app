@@ -18,8 +18,9 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   final ApiRepository apiRepository;
+  final SharedPreferences preferences;
 
-  LoginBloc(this.apiRepository) : super(const LoginInitialState()) {
+  LoginBloc(this.apiRepository, this.preferences) : super(const LoginInitialState()) {
 
     on<LoginPressedEvent>(handleLoginClicked);
     on<LoginInitEvent>(handleInitiation);
@@ -40,19 +41,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (response is DataSuccess) {
       final tokenModel = response.data?.data;
 
-      locator<SharedPreferences>().setString(
+      preferences.setString(
           AppConsts.keyToken,
           tokenModel?.access ?? "",
       );
 
-      locator<SharedPreferences>().setString(
+      preferences.setString(
           AppConsts.keyUser,
           jsonEncode(tokenModel?.user),
       );
 
       final diaryRes = await apiRepository.diariesCreate();
       final diary = diaryRes.data?.data;
-      locator<SharedPreferences>().setString(
+      preferences.setString(
         AppConsts.keyMyDiary,
         jsonEncode(diary),
       );

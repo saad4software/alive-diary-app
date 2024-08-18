@@ -10,6 +10,7 @@ import 'package:alive_diary/presentation/screens/main_nav/main_nav_screen.dart';
 import 'package:alive_diary/presentation/screens/profile/profile_screen.dart';
 import 'package:alive_diary/presentation/screens/profile_edit/profile_edit_screen.dart';
 import 'package:alive_diary/presentation/screens/register/register_screen.dart';
+import 'package:alive_diary/presentation/screens/temp/temp_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -68,6 +69,11 @@ class AppRouter extends _$AppRouter {
     AutoRoute(
         initial: false,
         page: ConversationRoute.page,
+    ),
+
+    AutoRoute(
+        initial: false,
+        page: TempRoute.page,
     ),
 
     // AutoRoute(

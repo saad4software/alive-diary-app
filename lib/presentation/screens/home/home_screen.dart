@@ -1,5 +1,6 @@
 
 import 'package:alive_diary/config/di/locator.dart';
+import 'package:alive_diary/config/locale/app_locale.dart';
 import 'package:alive_diary/config/router/app_router.dart';
 import 'package:alive_diary/presentation/screens/conversation/conversation_screen.dart';
 import 'package:alive_diary/presentation/screens/home/home_bloc.dart';
@@ -65,12 +66,12 @@ class HomeScreen extends HookWidget {
     void buildCreateMemoryDialog() {
 
       final dialog = AlertDialog(
-        title: const Text('Name your memory'),
+        title: Text(AppLocale.nameMemory.getString(context)),
         content: Form(
           child: TextFormField(
             controller: memoryNameController,
             decoration: InputDecoration(
-              hintText: "Graduation day",
+              hintText: AppLocale.graduation.getString(context),
               hintStyle: const TextStyle(color: Colors.black38),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
@@ -86,7 +87,7 @@ class HomeScreen extends HookWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('Cancel'),
+            child: Text(AppLocale.cancel.getString(context)),
           ),
           TextButton(
             onPressed: () {
@@ -96,7 +97,7 @@ class HomeScreen extends HookWidget {
               memoryNameController.clear();
               Navigator.pop(context);
             },
-            child: const Text('Create'),
+            child: Text(AppLocale.create.getString(context)),
           ),
         ],
       );
@@ -192,6 +193,7 @@ class HomeScreen extends HookWidget {
               switch (state) {
                 case HomeInitialState():
                   print("init");
+                  break;
 
                 case HomeListeningState():
                   isListening.value = true;
@@ -205,9 +207,11 @@ class HomeScreen extends HookWidget {
                 case HomeLoadingState():
                   // canWrite.value = false;
                   print("loading");
+                  break;
 
                 case HomeStartState():
                   print("start");
+                  break;
 
                 case HomeSuccessState():
                   showText(state.text);

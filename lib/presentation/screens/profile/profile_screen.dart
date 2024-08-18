@@ -17,7 +17,6 @@ class ProfileScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<ProfileBloc>(context);
-      // ..add(ProfileLoadEvent());
 
     final selectedLanguage = useState("EN");
     final profile = useState<UserModel?>(null);
@@ -40,8 +39,9 @@ class ProfileScreen extends HookWidget {
         child: Column(
           children: [
             TextButton(
-              onPressed: (){
-                appRouter.push(ProfileEditRoute(user: profile.value));
+              onPressed: () async {
+                await appRouter.push(ProfileEditRoute(user: profile.value));
+                bloc.add(ProfileLoadEvent());
               },
               child: SizedBox(
                 height: 200,
@@ -98,6 +98,29 @@ class ProfileScreen extends HookWidget {
               ),
             ),
 
+            // GestureDetector(
+            //   onTap: () {
+            //
+            //     appRouter.push(TempRoute());
+            //   },
+            //   child: Card(
+            //     color: Colors.white38,
+            //     child: Container(
+            //       padding: const EdgeInsets.symmetric(
+            //           vertical: 10, horizontal: 20),
+            //       width: double.infinity,
+            //       height: 75,
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: [
+            //           Text("temp screen",
+            //             style: AppTheme.textHeader,),
+            //           Text(selectedLanguage.value),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
 
           ],

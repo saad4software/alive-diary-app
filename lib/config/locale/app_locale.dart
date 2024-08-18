@@ -14,6 +14,23 @@ mixin AppLocale {
   static const String haveCode = 'have_code';
   static const String required = 'required';
   static const String welcome = 'welcome';
+  static const String memories = 'memories';
+  static const String diaries = 'diaries';
+  static const String nameMemory = 'name_memory';
+  static const String graduation = 'graduation';
+  static const String cancel = 'cancel';
+  static const String create = 'create';
+  static const String share = 'share';
+  static const String selectLanguage = 'select_language';
+  static const String confirmPassword = 'confirm_password';
+  static const String firstName = 'first_name';
+  static const String lastName = 'last_name';
+  static const String register = 'register';
+  static const String code = 'code';
+  static const String confirm = 'confirm';
+  static const String confirmAccount = 'confirm_account';
+  static const String save = 'save';
+  static const String bio = 'bio';
 
   Future<Map<String, dynamic>> loadJsonFromAssets(String filePath) async {
     String jsonString = await rootBundle.loadString(filePath);
@@ -35,6 +52,23 @@ mixin AppLocale {
 
     required: 'Required',
     welcome: 'Welcome home',
+    memories: 'Memories',
+    diaries: 'Diaries',
+    nameMemory: 'Name your memory',
+    graduation: 'Graduation day',
+    cancel: 'Cancel',
+    create: 'Create',
+    share: 'Share',
+    selectLanguage: 'Select Language',
+    confirmPassword: 'Confirm Password',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    register: 'Register',
+    code: 'Code',
+    confirm: 'Confirm',
+    confirmAccount: 'Confirm Account',
+    save: 'Save',
+    bio: 'Bio',
   };
   static const Map<String, dynamic> AR = {
     title: 'مرحبا',
@@ -53,7 +87,24 @@ mixin AppLocale {
 
     welcome: 'اهلا وسهلا',
 
+    memories: 'الذكريات',
+    diaries: 'المذكرات',
 
+    nameMemory: 'ما اسم الذكرى',
+    graduation: 'يوم التخرج',
+    cancel: 'الغاء',
+    create: 'انشاء',
+    share: 'مشاركة',
+    selectLanguage: 'حدد اللغة',
+    confirmPassword: 'تأكيد كلمة المرور',
+    firstName: 'الاسم',
+    lastName: 'الكنية',
+    register: 'تسجيل',
+    code: 'الرمز',
+    confirm: 'تفعيل',
+    confirmAccount: "تفعيل الحساب",
+    save: 'حفظ',
+    bio: 'بيو',
   };
 
 }

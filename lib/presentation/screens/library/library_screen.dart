@@ -1,15 +1,20 @@
-import 'package:alive_diary/config/extension/dio_exception_extension.dart';
+import 'package:alive_diary/config/di/locator.dart';
 import 'package:alive_diary/config/extension/scroll_view_extensions.dart';
+import 'package:alive_diary/config/locale/app_locale.dart';
 import 'package:alive_diary/config/router/app_router.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
+import 'package:alive_diary/domain/repositories/api_repository.dart';
+import 'package:alive_diary/presentation/blocs/list/list_bloc.dart';
 import 'package:alive_diary/presentation/screens/conversation/conversation_screen.dart';
 import 'package:alive_diary/presentation/screens/library/library_bloc.dart';
+import 'package:alive_diary/presentation/widgets/app_list_widget.dart';
 import 'package:alive_diary/presentation/widgets/item_diary.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:oktoast/oktoast.dart';
 
 @RoutePage()
@@ -50,12 +55,11 @@ class LibraryScreen extends HookWidget {
     return BlocListener<LibraryBloc, LibraryState>(
       listener: (context, state) {
         switch (state) {
-
           case LibraryInitial():
-            // TODO: Handle this case.
+          // TODO: Handle this case.
             break;
           case LibraryLoadingState():
-            // TODO: Handle this case.
+          // TODO: Handle this case.
             break;
           case LibraryShareDiaryState():
             showToast(state.errorMessage ?? "Diary shared successfully");
@@ -72,23 +76,23 @@ class LibraryScreen extends HookWidget {
           case LibraryErrorState():
             showToast(state.errorMessage ?? "Unexpected error");
         }
-
       },
       child: Column(
         children: [
           TabBar(
             controller: tabController,
-            tabs: const [
+            tabs: [
               Tab(
                 child: Text(
-                  "Memories",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  AppLocale.memories.getString(context),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 15),
                 ),
               ),
               Tab(
                 child: Text(
-                  "Diaries",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  AppLocale.diaries.getString(context),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
               ),
             ],
@@ -97,80 +101,56 @@ class LibraryScreen extends HookWidget {
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  BlocBuilder<LibraryBloc, LibraryState>(
-                    buildWhen: (previous,
-                        current) => current is LibraryMemoriesState,
-                    builder: (context, state) {
-                      switch (state) {
-                        case LibraryInitial():
-                        // TODO: Handle this case.
-                        case LibraryLoadingState():
-                          return const Center(
-                              child: CupertinoActivityIndicator());
-                        case LibraryDiariesState():
-                        // TODO: Hand
-                        case LibraryShareDiaryState():
-                        // TODO: Handle this case.
-                        case LibraryShareMemoryState():
-                        // TODO: Handle this case.
-                        case LibraryDeleteDiaryState():
-                        // TODO: Handle this case.
-                        case LibraryDeleteMemoryState():
-                        // TODO: Handle this case.
-                        case LibraryMemoriesState():
-                          return buildMemoriesList(
-                            context,
-                            userEmailController,
-                            memoriesScrollController,
-                            state.memoriesList,
-                            state.noMoreMemories,
-                          );
-                        case LibraryErrorState():
-                          return Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Text(state.errorMessage ?? "no error msg"),
-                          );
-                      }
-                    },
+                  BlocProvider(
+                    create: (context) => ListBloc((page)=>locator<ApiRepository>().memoriesList(page: page)),
+                    child: BlocBuilder<ListBloc<DiaryModel>, ListState<DiaryModel>>(
+                      builder: (context, state) {
+                        final listBloc = BlocProvider.of<ListBloc<DiaryModel>>(context);
+
+                        return AppListWidget<DiaryModel>(
+                          list: state.list,
+                          isLoading: state is ListLoadingState,
+                          getPageDate: () => listBloc.add(ListGetEvent()),
+                          buildItem: (item)=>ItemDiary(
+                            item: item!,
+                            onItemPressed: (item)=>appRouter.push(ConversationRoute(
+                                item: item,
+                                type: ConversationType.memory,
+                            )),
+                          ),
+                          noMoreData: state.noMoreData ?? true,
+                          onRefresh: ()=>listBloc.add(ListRefreshEvent()),
+                        );
+                      },
+
+
+                    ),
                   ),
 
-                  BlocBuilder<LibraryBloc, LibraryState>(
-                    buildWhen: (previous,
-                        current) => current is LibraryDiariesState,
-                    builder: (context, state) {
-                      switch (state) {
-                        case LibraryInitial():
-                        // TODO: Handle this case.
-                        case LibraryLoadingState():
-                          return const Center(
-                              child: CupertinoActivityIndicator());
-                        case LibraryMemoriesState():
-                          return const SizedBox();
+                  BlocProvider(
+                    create: (context) => ListBloc((page)=>locator<ApiRepository>().diariesList(page: page)),
+                    child: BlocBuilder<ListBloc<DiaryModel>, ListState<DiaryModel>>(
+                      builder: (context, state) {
+                        final listBloc = BlocProvider.of<ListBloc<DiaryModel>>(context);
 
-                        case LibraryErrorState():
-                          return Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Text(state.errorMessage ?? "no error msg"),
-                          );
-                        case LibraryShareDiaryState():
-                        // TODO: Handle this case.
-                        case LibraryShareMemoryState():
-                        // TODO: Handle this case.
-                        case LibraryDeleteDiaryState():
-                        // TODO: Handle this case.
-                        case LibraryDeleteMemoryState():
-                        // TODO: Handle this case.
+                        return AppListWidget<DiaryModel>(
+                          list: state.list,
+                          isLoading: state is ListLoadingState,
+                          getPageDate: () => listBloc.add(ListGetEvent()),
+                          buildItem: (item)=>ItemDiary(
+                            item: item!,
+                            onItemPressed: (item)=>appRouter.push(ConversationRoute(
+                              item: item,
+                              type: ConversationType.diary,
+                            )),
+                          ),
+                          noMoreData: state.noMoreData ?? true,
+                          onRefresh: ()=>listBloc.add(ListRefreshEvent()),
+                        );
+                      },
 
-                        case LibraryDiariesState():
-                          return buildDiariesList(
-                            context,
-                            userEmailController,
-                            diariesScrollController,
-                            state.diariesList,
-                            state.noMoreDiaries,
-                          );
-                      }
-                    },
+
+                    ),
                   ),
                 ],
               ))
@@ -211,7 +191,7 @@ class LibraryScreen extends HookWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('Cancel'),
+            child: Text(AppLocale.cancel.getString(context)),
           ),
           TextButton(
             onPressed: () {
@@ -223,7 +203,7 @@ class LibraryScreen extends HookWidget {
               controller.clear();
               Navigator.pop(context);
             },
-            child: const Text('Share'),
+            child: Text(AppLocale.share.getString(context)),
           ),
         ],
       );
@@ -288,13 +268,11 @@ class LibraryScreen extends HookWidget {
     );
   }
 
-  Widget buildMemoriesList(
-      BuildContext context,
+  Widget buildMemoriesList(BuildContext context,
       TextEditingController controller,
       ScrollController scrollController,
       List<DiaryModel> list,
       bool noMoreData,) {
-
     final bloc = BlocProvider.of<LibraryBloc>(context);
 
     void showShareDialog(DiaryModel item) {
@@ -321,7 +299,7 @@ class LibraryScreen extends HookWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('Cancel'),
+            child: Text(AppLocale.cancel.getString(context)),
           ),
           TextButton(
             onPressed: () {
@@ -333,7 +311,7 @@ class LibraryScreen extends HookWidget {
               controller.clear();
               Navigator.pop(context);
             },
-            child: const Text('Share'),
+            child: Text(AppLocale.share.getString(context)),
           ),
         ],
       );

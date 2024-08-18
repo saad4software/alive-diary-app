@@ -13,7 +13,7 @@ class _RemoteDatasource implements RemoteDatasource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://campaigny.net:8099/api';
+    baseUrl ??= 'http://192.168.1.102:8555/api';
   }
 
   final Dio _dio;
@@ -266,7 +266,7 @@ class _RemoteDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<HttpResponse<GenericResponse<UserModel>>> details({
+  Future<HttpResponse<GenericResponse<UserModel>>> profileDetails({
     String? token,
     String? lang,
   }) async {
@@ -282,6 +282,47 @@ class _RemoteDatasource implements RemoteDatasource {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<GenericResponse<UserModel>>>(Options(
       method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/account/details/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = GenericResponse<UserModel>.fromJson(
+      _result.data!,
+      (json) => UserModel.fromJson(json as Map<String, dynamic>),
+    );
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<GenericResponse<UserModel>>> updateProfile({
+    UserModel? request,
+    String? token,
+    String? lang,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{
+      r'Authorization': token,
+      r'Accept-Language': lang,
+    };
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(request?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<GenericResponse<UserModel>>>(Options(
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )

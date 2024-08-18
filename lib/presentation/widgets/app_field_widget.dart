@@ -1,14 +1,21 @@
+import 'package:alive_diary/config/locale/app_locale.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 
-class AppFormField extends StatelessWidget {
-  const AppFormField({
+class AppFieldWidget extends StatelessWidget {
+  const AppFieldWidget({
+    super.key,
+
     required this.controller,
     required this.label,
     this.isEnabled = true,
     this.isRequired = false,
     this.isMultiline = false,
+    this.isPassword = false,
 
-    super.key,
+    this.suffixIcon,
+    this.inputType = TextInputType.text,
+    this.onTab,
   });
 
   final TextEditingController controller;
@@ -16,18 +23,26 @@ class AppFormField extends StatelessWidget {
   final bool isEnabled;
   final bool isRequired;
   final bool isMultiline;
+  final bool isPassword;
+  final Widget? suffixIcon;
+  final TextInputType inputType;
+  final Function()? onTab;
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child:TextFormField(
         enabled: isEnabled,
-        keyboardType: TextInputType.text,
+        keyboardType: inputType,
         controller: controller,
-        validator: isRequired ? (val) => val!.isEmpty ? 'Required' : null : null,
+        validator: isRequired ? (val) => val!.isEmpty ? AppLocale.required.getString(context) : null : null,
         textInputAction: TextInputAction.next,
-        maxLines: isMultiline ? 3 : null,
+        maxLines: isMultiline ? 3 : 1,
+        onTap: onTab,
+        obscureText: isPassword,
         decoration: InputDecoration(
+          suffixIcon: suffixIcon,
           labelText: label,
           alignLabelWithHint: true,
           labelStyle: const TextStyle(color: Colors.black38),

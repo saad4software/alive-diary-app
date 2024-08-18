@@ -1,3 +1,4 @@
+import 'package:alive_diary/config/locale/app_locale.dart';
 import 'package:alive_diary/config/router/app_router.dart';
 import 'package:alive_diary/domain/models/entities/user_model.dart';
 import 'package:alive_diary/domain/models/responses/ErrorResponse.dart';
@@ -8,6 +9,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:oktoast/oktoast.dart';
 
 @RoutePage()
@@ -29,7 +31,7 @@ class ConfirmScreen extends HookWidget {
     final codeField = useTextEditingController(text: "");
 
     return LayoutWidget(
-      title: "Confirm Account",
+      title: AppLocale.confirmAccount.getString(context),
       child: SingleChildScrollView(
         child: BlocListener<ConfirmBloc, ConfirmState>(
           listener: (context, state) {
@@ -59,10 +61,10 @@ class ConfirmScreen extends HookWidget {
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     controller: usernameField,
-                    validator: (val) => val!.isEmpty ? 'Required' : null,
+                    validator: (val) => val!.isEmpty ? AppLocale.required.getString(context) : null,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      labelText: "Email",
+                      labelText: AppLocale.email.getString(context),
                       labelStyle: const TextStyle(color: Colors.black38),
                       floatingLabelStyle:
                           const TextStyle(height: 4, color: Colors.black),
@@ -79,9 +81,9 @@ class ConfirmScreen extends HookWidget {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: codeField,
-                    validator: (val) => val!.isEmpty ? 'Required' : null,
+                    validator: (val) => val!.isEmpty ? AppLocale.required.getString(context) : null,
                     decoration: InputDecoration(
-                      labelText: "Code",
+                      labelText: AppLocale.code.getString(context),
                       labelStyle: const TextStyle(color: Colors.black38),
                       floatingLabelStyle:
                           const TextStyle(height: 4, color: Colors.black),
@@ -146,7 +148,7 @@ class ConfirmScreen extends HookWidget {
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20),
-                                    child: const Text("Confirm",
+                                    child: Text(AppLocale.confirm.getString(context),
                                         style: TextStyle(color: Colors.white)),
                                   ),
                                 );
