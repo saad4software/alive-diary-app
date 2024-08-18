@@ -220,7 +220,7 @@ class HomeScreen extends HookWidget {
 
                 case HomeCreatedMemoryState():
                   appRouter.push(ConversationRoute(
-                      item: state.memory,
+                      memory: state.memory,
                       type: ConversationType.createMemory,
                   ));
 

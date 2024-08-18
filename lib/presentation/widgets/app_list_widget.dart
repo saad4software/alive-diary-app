@@ -46,6 +46,7 @@ class AppListWidget<T> extends HookWidget {
       },
       child: Container(
         child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           controller: scrollController,
           slivers: [
             SliverList(

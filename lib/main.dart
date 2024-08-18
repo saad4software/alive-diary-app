@@ -51,6 +51,9 @@ class MyApp extends HookWidget {
           BlocProvider(create: (context) => ProfileBloc(locator())),
           BlocProvider(create: (context) => ProfileEditBloc(locator(), locator())),
 
+          BlocProvider(create: (context) => ListBloc((page)=>locator<ApiRepository>().memoriesList(page: page))),
+          BlocProvider(create: (context) => ListBloc((page)=>locator<ApiRepository>().diariesList(page: page))),
+
           BlocProvider(create: (context) => TempBloc(locator())),  // for testing purposes
 
         ],

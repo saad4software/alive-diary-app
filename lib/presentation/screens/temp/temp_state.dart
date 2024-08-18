@@ -2,7 +2,7 @@ part of 'temp_bloc.dart';
 
 @immutable
 sealed class TempState {
-  final List<DiaryModel>? list;
+  final List<MemoryModel>? list;
   final String? errorMessage;
   final bool? noMoreData;
 

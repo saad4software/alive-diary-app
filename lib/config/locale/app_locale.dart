@@ -31,6 +31,10 @@ mixin AppLocale {
   static const String confirmAccount = 'confirm_account';
   static const String save = 'save';
   static const String bio = 'bio';
+  static const String delete = 'delete';
+  static const String userEmail = 'user_email';
+  static const String areYouSure = 'are_you_sure';
+  static const String capture = 'capture';
 
   Future<Map<String, dynamic>> loadJsonFromAssets(String filePath) async {
     String jsonString = await rootBundle.loadString(filePath);
@@ -69,6 +73,10 @@ mixin AppLocale {
     confirmAccount: 'Confirm Account',
     save: 'Save',
     bio: 'Bio',
+    delete: 'Delete',
+    userEmail: 'User\'s email',
+    areYouSure: 'Are you sure',
+    capture: 'Capture',
   };
   static const Map<String, dynamic> AR = {
     title: 'مرحبا',
@@ -105,6 +113,11 @@ mixin AppLocale {
     confirmAccount: "تفعيل الحساب",
     save: 'حفظ',
     bio: 'بيو',
+    delete: 'حذف',
+    userEmail: 'بريد المستخدم',
+    areYouSure: 'هل أنت متأكد؟',
+    capture: 'احتفظ بذكرى',
+
   };
 
 }

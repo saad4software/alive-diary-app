@@ -6,7 +6,7 @@ sealed class HomeState {
   final String? errorMessage;
   final String? text;
   final int? conversation;
-  final DiaryModel? memory;
+  final MemoryModel? memory;
 
   const HomeState({
     this.error,

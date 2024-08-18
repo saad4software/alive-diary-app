@@ -1,19 +1,20 @@
 import 'package:alive_diary/config/locale/app_locale.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
+import 'package:alive_diary/domain/models/entities/memory_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart';
 
-class ItemDiary extends StatelessWidget {
+class ItemMemory extends StatelessWidget {
 
-  final DiaryModel item;
+  final MemoryModel item;
   final bool isRemovable;
-  final void Function(DiaryModel item)? onRemove;
-  final void Function(DiaryModel item)? onShare;
-  final void Function(DiaryModel item)? onItemPressed;
+  final void Function(MemoryModel item)? onRemove;
+  final void Function(MemoryModel item)? onShare;
+  final void Function(MemoryModel item)? onItemPressed;
   final bool showContextMenu;
-  const ItemDiary({
+  const ItemMemory({
     super.key,
     required this.item,
     this.onItemPressed,

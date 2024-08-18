@@ -2,6 +2,7 @@
 import 'package:alive_diary/abstracts/data_state.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
 import 'package:alive_diary/domain/models/entities/login_model.dart';
+import 'package:alive_diary/domain/models/entities/memory_model.dart';
 import 'package:alive_diary/domain/models/entities/message_model.dart';
 import 'package:alive_diary/domain/models/entities/user_model.dart';
 import 'package:alive_diary/domain/models/responses/ListResponse.dart';
@@ -74,39 +75,39 @@ abstract class ApiRepository {
     required int conversation,
   });
 
-  Future<DataState<GenericResponse<ListResponse<DiaryModel>>>> memoriesList({
+  Future<DataState<GenericResponse<ListResponse<MemoryModel>>>> memoriesList({
     required int page,
   });
 
-  Future<DataState<GenericResponse<DiaryModel>>> memoryCreate({
+  Future<DataState<GenericResponse<MemoryModel>>> memoryCreate({
     required String name,
   });
 
   Future<DataState<GenericResponse<String>>> memoryDelete({
-    required DiaryModel item,
+    required MemoryModel item,
   });
 
   Future<DataState<GenericResponse<MessageModel>>> memoryStart({
-    required DiaryModel item,
+    required MemoryModel item,
   });
 
   Future<DataState<GenericResponse<MessageModel>>> memorySend({
-    required DiaryModel item,
+    required MemoryModel item,
     required String text,
     required int conversation,
   });
 
   Future<DataState<GenericResponse<MessageModel>>> memoryCreateStart({
-    required DiaryModel item,
+    required MemoryModel item,
   });
 
   Future<DataState<GenericResponse<String>>> memoryShare({
-    required DiaryModel item,
+    required MemoryModel item,
     required String email,
   });
 
   Future<DataState<GenericResponse<MessageModel>>> memoryCreateSend({
-    required DiaryModel item,
+    required MemoryModel item,
     required String text,
     required int conversation,
   });

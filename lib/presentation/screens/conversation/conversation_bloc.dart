@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:alive_diary/abstracts/data_state.dart';
 import 'package:alive_diary/config/extension/dio_exception_extension.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
+import 'package:alive_diary/domain/models/entities/memory_model.dart';
 import 'package:alive_diary/domain/models/entities/message_model.dart';
 import 'package:alive_diary/domain/models/responses/ErrorResponse.dart';
 import 'package:alive_diary/domain/models/responses/generic_response.dart';
@@ -57,9 +58,9 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       case ConversationType.diary:
         response = await apiRepository.diaryStart(item: event.diary!);
       case ConversationType.memory:
-        response = await apiRepository.memoryStart(item: event.diary!);
+        response = await apiRepository.memoryStart(item: event.memory!);
       case ConversationType.createMemory:
-        response = await apiRepository.memoryCreateStart(item: event.diary!);
+        response = await apiRepository.memoryCreateStart(item: event.memory!);
 
       case null:
         print("null type");
@@ -111,14 +112,14 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
 
       case ConversationType.memory:
         response = await apiRepository.memorySend(
-          item: event.diary!,
+          item: event.memory!,
           text: event.text ?? "",
           conversation: conversationId ?? 0,
         );
 
       case ConversationType.createMemory:
         response = await apiRepository.memoryCreateSend(
-          item: event.diary!,
+          item: event.memory!,
           text: event.text ?? "",
           conversation: conversationId ?? 0,
         );

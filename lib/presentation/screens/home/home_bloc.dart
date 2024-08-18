@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:alive_diary/abstracts/data_state.dart';
 import 'package:alive_diary/config/constants/app_consts.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
+import 'package:alive_diary/domain/models/entities/memory_model.dart';
 import 'package:alive_diary/domain/repositories/api_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';

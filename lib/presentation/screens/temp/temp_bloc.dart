@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:alive_diary/abstracts/data_state.dart';
 import 'package:alive_diary/config/extension/dio_exception_extension.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
+import 'package:alive_diary/domain/models/entities/memory_model.dart';
 import 'package:alive_diary/domain/repositories/api_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -15,7 +16,7 @@ class TempBloc extends Bloc<TempEvent, TempState> {
   final ApiRepository repository;
 
   int page= 1;
-  List<DiaryModel> list = [];
+  List<MemoryModel> list = [];
   bool noMore = false;
 
   TempBloc(this.repository) : super(TempInitialState()) {

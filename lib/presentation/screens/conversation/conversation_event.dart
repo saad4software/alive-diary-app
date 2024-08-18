@@ -6,22 +6,24 @@ sealed class ConversationEvent {
   final int? conversation;
 
   final DiaryModel? diary;
+  final MemoryModel? memory;
   final ConversationType? type;
 
   const ConversationEvent({
     this.text,
     this.conversation,
     this.diary,
+    this.memory,
     this.type,
   });
 }
 
 class ConversationStartEvent extends ConversationEvent {
-  const ConversationStartEvent({super.diary, super.type});
+  const ConversationStartEvent({super.diary, super.memory, super.type});
 }
 
 class ConversationSendEvent extends ConversationEvent {
-  const ConversationSendEvent({super.text, super.diary, super.type});
+  const ConversationSendEvent({super.text, super.diary, super.memory, super.type});
 }
 
 

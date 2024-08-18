@@ -1,5 +1,7 @@
 import 'package:alive_diary/config/di/locator.dart';
+import 'package:alive_diary/config/locale/app_locale.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
+import 'package:alive_diary/domain/models/entities/memory_model.dart';
 import 'package:alive_diary/presentation/screens/conversation/conversation_bloc.dart';
 import 'package:alive_diary/presentation/widgets/layout_widget.dart';
 import 'package:alive_diary/presentation/widgets/loading_widget.dart';
@@ -18,11 +20,13 @@ enum ConversationType { diary, memory, createMemory }
 
 @RoutePage()
 class ConversationScreen extends HookWidget {
-  final DiaryModel? item;
+  final DiaryModel? diary;
+  final MemoryModel? memory;
   final ConversationType? type;
   const ConversationScreen({
     super.key,
-    this.item,
+    this.diary,
+    this.memory,
     this.type,
   });
 
@@ -74,17 +78,17 @@ class ConversationScreen extends HookWidget {
       return null;
     }, [locator<FlutterLocalization>().currentLocale.localeIdentifier]);
 
-    var title = "${item?.firstName} ${item?.lastName}'s diary";
+    var title = "${diary?.firstName} ${diary?.lastName}'s diary";
     switch (type) {
 
       case ConversationType.diary:
-        title = "${item?.firstName} ${item?.lastName}'s diary";
+        title = "${diary?.firstName} ${diary?.lastName}'s diary";
 
       case ConversationType.memory:
-        title = "${item?.title}";
+        title = "${memory?.title}";
 
       case ConversationType.createMemory:
-        title = "Capture ${item?.title}";
+        title = "${AppLocale.capture.getString(context)} ${memory?.title}";
 
       case null:
         // TODO: Handle this case.
@@ -195,7 +199,8 @@ class ConversationScreen extends HookWidget {
                     onTap: () async {
                       if(canWrite.value == null) {
                         bloc.add(ConversationStartEvent(
-                            diary: item,
+                            diary: diary,
+                            memory: memory,
                             type: type,
                         ));
 
@@ -207,7 +212,8 @@ class ConversationScreen extends HookWidget {
                     onSubmitted: (text) async {
 
                       bloc.add(ConversationSendEvent(
-                        diary: item,
+                        diary: diary,
+                        memory: memory,
                         text: textController.text,
                         type: type,
                       ));

@@ -5,13 +5,15 @@ sealed class LibraryEvent {
   final int? page;
   final int? pageSize;
   final String? email;
-  final DiaryModel? item;
+  final DiaryModel? diary;
+  final MemoryModel? memory;
 
   const LibraryEvent({
     this.page,
     this.pageSize,
     this.email,
-    this.item,
+    this.diary,
+    this.memory,
   });
 }
 
@@ -24,20 +26,20 @@ class LibraryMemoriesListEvent extends LibraryEvent {
 }
 
 class LibraryShareDiaryEvent extends LibraryEvent {
-  const LibraryShareDiaryEvent({super.email, super.item});
+  const LibraryShareDiaryEvent({super.email, super.diary});
 }
 
 class LibraryShareMemoryEvent extends LibraryEvent {
   const LibraryShareMemoryEvent({
     super.email,
-    super.item,
+    super.memory,
   });
 }
 
 class LibraryDelMemoryEvent extends LibraryEvent {
-  const LibraryDelMemoryEvent({super.item});
+  const LibraryDelMemoryEvent({super.memory});
 }
 
 class LibraryDelDiaryEvent extends LibraryEvent {
-  const LibraryDelDiaryEvent({super.item});
+  const LibraryDelDiaryEvent({super.diary});
 }

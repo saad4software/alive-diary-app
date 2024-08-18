@@ -24,6 +24,7 @@ class ProfileScreen extends HookWidget {
 
     useEffect((){
       bloc.add(ProfileLoadEvent());
+      selectedLanguage.value = locator<FlutterLocalization>().currentLocale.localeIdentifier.toUpperCase();
       return null;
     }, []);
 

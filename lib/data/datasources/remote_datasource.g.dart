@@ -13,7 +13,7 @@ class _RemoteDatasource implements RemoteDatasource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://192.168.1.102:8555/api';
+    baseUrl ??= 'http://campaigny.net:8099/api';
   }
 
   final Dio _dio;
@@ -676,7 +676,8 @@ class _RemoteDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<HttpResponse<GenericResponse<ListResponse<DiaryModel>>>> memoriesList({
+  Future<HttpResponse<GenericResponse<ListResponse<MemoryModel>>>>
+      memoriesList({
     int? page,
     String? token,
     String? lang,
@@ -690,29 +691,28 @@ class _RemoteDatasource implements RemoteDatasource {
     };
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<GenericResponse<ListResponse<DiaryModel>>>>(
-            Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<
+        HttpResponse<GenericResponse<ListResponse<MemoryModel>>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-                .compose(
-                  _dio.options,
-                  '/memories/list/',
-                  queryParameters: queryParameters,
-                  data: _data,
-                )
-                .copyWith(
-                    baseUrl: _combineBaseUrls(
-                  _dio.options.baseUrl,
-                  baseUrl,
-                ))));
-    final _value = GenericResponse<ListResponse<DiaryModel>>.fromJson(
+        .compose(
+          _dio.options,
+          '/memories/list/',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final _value = GenericResponse<ListResponse<MemoryModel>>.fromJson(
       _result.data!,
-      (json) => ListResponse<DiaryModel>.fromJson(
+      (json) => ListResponse<MemoryModel>.fromJson(
         json as Map<String, dynamic>,
-        (json) => DiaryModel.fromJson(json as Map<String, dynamic>),
+        (json) => MemoryModel.fromJson(json as Map<String, dynamic>),
       ),
     );
     final httpResponse = HttpResponse(_value, _result);
@@ -720,8 +720,8 @@ class _RemoteDatasource implements RemoteDatasource {
   }
 
   @override
-  Future<HttpResponse<GenericResponse<DiaryModel>>> memoryCreate({
-    DiaryModel? request,
+  Future<HttpResponse<GenericResponse<MemoryModel>>> memoryCreate({
+    MemoryModel? request,
     String? token,
     String? lang,
   }) async {
@@ -736,7 +736,7 @@ class _RemoteDatasource implements RemoteDatasource {
     final _data = <String, dynamic>{};
     _data.addAll(request?.toJson() ?? <String, dynamic>{});
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<GenericResponse<DiaryModel>>>(Options(
+        _setStreamType<HttpResponse<GenericResponse<MemoryModel>>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -752,9 +752,9 @@ class _RemoteDatasource implements RemoteDatasource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final _value = GenericResponse<DiaryModel>.fromJson(
+    final _value = GenericResponse<MemoryModel>.fromJson(
       _result.data!,
-      (json) => DiaryModel.fromJson(json as Map<String, dynamic>),
+      (json) => MemoryModel.fromJson(json as Map<String, dynamic>),
     );
     final httpResponse = HttpResponse(_value, _result);
     return httpResponse;

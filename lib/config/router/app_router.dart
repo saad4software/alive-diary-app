@@ -1,5 +1,6 @@
 import 'package:alive_diary/config/constants/app_consts.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
+import 'package:alive_diary/domain/models/entities/memory_model.dart';
 import 'package:alive_diary/domain/models/entities/user_model.dart';
 import 'package:alive_diary/presentation/screens/confirm/confirm_screen.dart';
 import 'package:alive_diary/presentation/screens/conversation/conversation_screen.dart';

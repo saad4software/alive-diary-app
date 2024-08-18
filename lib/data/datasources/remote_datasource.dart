@@ -1,6 +1,7 @@
 import 'package:alive_diary/config/constants/app_consts.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
 import 'package:alive_diary/domain/models/entities/login_model.dart';
+import 'package:alive_diary/domain/models/entities/memory_model.dart';
 import 'package:alive_diary/domain/models/entities/message_model.dart';
 import 'package:alive_diary/domain/models/entities/user_model.dart';
 import 'package:alive_diary/domain/models/requests/activate_account_request.dart';
@@ -138,15 +139,15 @@ abstract class RemoteDatasource {
   });
 
   @GET('/memories/list/')
-  Future<HttpResponse<GenericResponse<ListResponse<DiaryModel>>>> memoriesList({
+  Future<HttpResponse<GenericResponse<ListResponse<MemoryModel>>>> memoriesList({
     @Query("page") int? page,
     @Header("Authorization") String? token,
     @Header("Accept-Language") String? lang,
   });
 
   @POST('/memories/list/')
-  Future<HttpResponse<GenericResponse<DiaryModel>>> memoryCreate({
-    @Body() DiaryModel? request,
+  Future<HttpResponse<GenericResponse<MemoryModel>>> memoryCreate({
+    @Body() MemoryModel? request,
     @Header("Authorization") String? token,
     @Header("Accept-Language") String? lang,
   });

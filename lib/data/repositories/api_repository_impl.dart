@@ -5,6 +5,7 @@ import 'package:alive_diary/config/di/locator.dart';
 import 'package:alive_diary/data/datasources/remote_datasource.dart';
 import 'package:alive_diary/domain/models/entities/diary_model.dart';
 import 'package:alive_diary/domain/models/entities/login_model.dart';
+import 'package:alive_diary/domain/models/entities/memory_model.dart';
 import 'package:alive_diary/domain/models/entities/message_model.dart';
 import 'package:alive_diary/domain/models/entities/user_model.dart';
 import 'package:alive_diary/domain/models/requests/activate_account_request.dart';
@@ -153,7 +154,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   );
 
   @override
-  Future<DataState<GenericResponse<ListResponse<DiaryModel>>>> memoriesList({
+  Future<DataState<GenericResponse<ListResponse<MemoryModel>>>> memoriesList({
     required int page,
   }) => getStateOf(
       request: () {
@@ -167,7 +168,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
 
   @override
   Future<DataState<GenericResponse<MessageModel>>> memoryCreateSend({
-    required DiaryModel item,
+    required MemoryModel item,
     required String text,
     required int conversation
   }) => getStateOf(
@@ -186,7 +187,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
 
   @override
   Future<DataState<GenericResponse<MessageModel>>> memoryCreateStart({
-    required DiaryModel item
+    required MemoryModel item
   }) => getStateOf(
       request: () {
         return remoteDatasource.memoryCreateStart(
@@ -199,7 +200,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
 
   @override
   Future<DataState<GenericResponse<MessageModel>>> memorySend({
-    required DiaryModel item,
+    required MemoryModel item,
     required String text,
     required int conversation
   }) => getStateOf(
@@ -218,7 +219,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
 
   @override
   Future<DataState<GenericResponse<MessageModel>>> memoryStart({
-    required DiaryModel item
+    required MemoryModel item
   }) => getStateOf(
       request: () {
         return remoteDatasource.memoryStart(
@@ -230,12 +231,12 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   );
 
   @override
-  Future<DataState<GenericResponse<DiaryModel>>> memoryCreate({
+  Future<DataState<GenericResponse<MemoryModel>>> memoryCreate({
     required String name
   }) => getStateOf(
       request: () {
         return remoteDatasource.memoryCreate(
-          request: DiaryModel(title: name),
+          request: MemoryModel(title: name),
           token: "Bearer ${_preferences.getString(AppConsts.keyToken)}",
           lang: locator<FlutterLocalization>().currentLocale.localeIdentifier,
         );
@@ -313,7 +314,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
 
   @override
   Future<DataState<GenericResponse<String>>> memoryDelete({
-    required DiaryModel item,
+    required MemoryModel item,
   }) => getStateOf(
       request: () {
         return remoteDatasource.memoryDelete(
@@ -327,7 +328,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   @override
   Future<DataState<GenericResponse<String>>> memoryShare({
     required String email,
-    required DiaryModel item,
+    required MemoryModel item,
   }) => getStateOf(
       request: () {
         return remoteDatasource.memoryShare(

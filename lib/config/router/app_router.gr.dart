@@ -33,7 +33,8 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: ConversationScreen(
           key: args.key,
-          item: args.item,
+          diary: args.diary,
+          memory: args.memory,
           type: args.type,
         ),
       );
@@ -137,14 +138,16 @@ class ConfirmRouteArgs {
 class ConversationRoute extends PageRouteInfo<ConversationRouteArgs> {
   ConversationRoute({
     Key? key,
-    DiaryModel? item,
+    DiaryModel? diary,
+    MemoryModel? memory,
     ConversationType? type,
     List<PageRouteInfo>? children,
   }) : super(
           ConversationRoute.name,
           args: ConversationRouteArgs(
             key: key,
-            item: item,
+            diary: diary,
+            memory: memory,
             type: type,
           ),
           initialChildren: children,
@@ -159,19 +162,22 @@ class ConversationRoute extends PageRouteInfo<ConversationRouteArgs> {
 class ConversationRouteArgs {
   const ConversationRouteArgs({
     this.key,
-    this.item,
+    this.diary,
+    this.memory,
     this.type,
   });
 
   final Key? key;
 
-  final DiaryModel? item;
+  final DiaryModel? diary;
+
+  final MemoryModel? memory;
 
   final ConversationType? type;
 
   @override
   String toString() {
-    return 'ConversationRouteArgs{key: $key, item: $item, type: $type}';
+    return 'ConversationRouteArgs{key: $key, diary: $diary, memory: $memory, type: $type}';
   }
 }
 
