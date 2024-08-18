@@ -57,4 +57,8 @@ flutter run lib/main.dart
 ## Backend Application
 Get the backend applications from https://github.com/saad4software/alive-diary-backend
 
+## Application Videos
+https://www.youtube.com/watch?v=PyUyq1JZXRQ&list=PLvPINJRuTlZ-l8LkFG2FpjHsOJQCB4WlJ
+
+
 
